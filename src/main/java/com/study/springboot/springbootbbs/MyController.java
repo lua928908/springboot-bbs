@@ -2,13 +2,10 @@ package com.study.springboot.springbootbbs;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,21 +23,22 @@ public class MyController {
         return "index";
     }
 
-    @RequestMapping("/test")
-    public String test(@RequestParam("id") String id, @RequestParam("name") String name, Model model){
+    @RequestMapping("/create")
+    public String test1(@ModelAttribute("dto") ContentDto contentDto, BindingResult result){
+        String page = "done";
+        System.out.println(contentDto);
 
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
+        ContentValidator validator = new ContentValidator();
+        validator.validate(contentDto, result); // validate메서드를 통해 contentDto를 검사하고 에러가있으면 result에 담음
+        if(result.hasErrors()){
+            page = "create";
+        }
 
-        return "test";
+        return page;
     }
 
-    @RequestMapping("/test2/{id}/{name}") // 여기있는 id,name 이 @PathVariable에 매핑됨
-    public String test2(@PathVariable String id, @PathVariable String name, Model model){
-
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
-
-        return "test2";
+    @RequestMapping("/done")
+    public String test2(){
+        return "done";
     }
 }
