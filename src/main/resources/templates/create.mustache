@@ -1,9 +1,10 @@
 {{>layout/header}}
 
 create 페이지
-<form action="/done">
-    <p>작성자 : <input type="text"></p>
-    <p>내용 : <input type="text"></p>
+<form action="/create" method="get">
+    <p>작성자 : <input type="text" name="writer" value=""></p>
+    <p>내용 : <input type="text" name="content" value=""></p>
+
     <p><button>전송</button></p>
 </form>
 

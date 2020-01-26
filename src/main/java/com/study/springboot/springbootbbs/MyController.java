@@ -24,7 +24,7 @@ public class MyController {
     }
 
     @RequestMapping("/create")
-    public String test1(@ModelAttribute("dto") ContentDto contentDto, BindingResult result){
+    public String test1(@ModelAttribute("dto") ContentDto contentDto, BindingResult result){ // contentDto라는 값을 Modal에 dto라는 key이름으로 저장하는 의미
         String page = "done";
         System.out.println(contentDto);
 
