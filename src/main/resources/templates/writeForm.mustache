@@ -1,0 +1,18 @@
+{{>layout/header}}
+
+<form action="write" method="post">
+    <p>
+        작성자: <input type="text" name="writer">
+    </p>
+    <p>
+        제목: <input type="text" name="title">
+    </p>
+    <p>
+        내용: <input type="text" name="content">
+    </p>
+
+    <p><button>글쓰기</button></p>
+    <p><a href="list">목록보기</a></p>
+</form>
+
+{{>layout/footer}}

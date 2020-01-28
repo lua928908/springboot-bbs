@@ -1,0 +1,26 @@
+{{>layout/header}}
+
+<table>
+    <thead>
+    <th>번호</th>
+    <th>작성자</th>
+    <th>제목</th>
+    <th>삭제</th>
+    </thead>
+
+
+    <tbody>
+    {{#list}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{writer}}</td>
+            <td><a href="view?id={{id}}">{{title}}</a></td>
+            <td><a href="delete?id={{id}}">X</a></td>
+        </tr>
+    {{/list}}
+    </tbody>
+</table>
+
+<p><a href="writeForm">글쓰기</a></p>
+
+{{>layout/footer}}
