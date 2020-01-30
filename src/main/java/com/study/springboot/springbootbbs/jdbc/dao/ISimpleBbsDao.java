@@ -1,9 +1,10 @@
 package com.study.springboot.springbootbbs.jdbc.dao;
 
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import com.study.springboot.springbootbbs.jdbc.dto.SimpleBbsDto;
 
-import java.util.List;
-
+@Mapper
 public interface ISimpleBbsDao {
     public List<SimpleBbsDto> listDao();
     public SimpleBbsDto viewDao(String id);
