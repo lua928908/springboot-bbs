@@ -12,10 +12,14 @@
 
     <insert id="writeDao">
         INSERT into bbs (writer, title, content)
-            VALUES (${param1}, ${param2}, ${param3})
+            VALUES(${name}, ${title}, ${content})
     </insert>
 
     <delete id="deleteDao">
-        DELETE FROM bbs WHERE id = #{param1}
+        DELETE FROM bbs WHERE id = #{id}
     </delete>
+
+    <select id="articleCount" resultType="_int">
+        SELECT COUNT(*) FROM bbs
+    </select>
 </mapper>

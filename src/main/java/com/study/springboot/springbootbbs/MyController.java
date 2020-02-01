@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class MyController {
@@ -19,6 +21,15 @@ public class MyController {
 
     @Autowired
     private ISimpleBbsDao dao;
+
+    @RequestMapping("/list")
+    public String userListPage(Model model){
+        model.addAttribute("list", dao.listDao());
+
+        int nTotalCount = dao.articleCount();
+        System.out.println("Count : " + nTotalCount);
+        return "/list";
+    }
 
     @RequestMapping("/view")
     public String view(HttpServletRequest request, Model model){
@@ -34,11 +45,18 @@ public class MyController {
 
     @RequestMapping("/write")
     public String write(HttpServletRequest request, Model model){
-        dao.writeDao(
-                request.getParameter("writer"),
-                request.getParameter("title"),
-                request.getParameter("content")
-        );
+        String sName = request.getParameter("writer");
+        String sTitle = request.getParameter("title");
+        String sContent = request.getParameter("content");
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("name", sName);
+        map.put("title", sTitle);
+        map.put("content", sContent);
+
+        int nResult = dao.writeDao(map);
+        System.out.println("write : " + nResult);
+
         return "redirect:list";
     }
 
