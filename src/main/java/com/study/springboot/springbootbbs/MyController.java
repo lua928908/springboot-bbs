@@ -1,8 +1,8 @@
 package com.study.springboot.springbootbbs;
 
-import com.study.springboot.springbootbbs.jdbc.dao.ISimpleBbsDao;
+import com.study.springboot.springbootbbs.service.IBuyTicketService;
+import com.study.springboot.springbootbbs.service.ISimpleBbsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +20,13 @@ public class MyController {
     */
 
     @Autowired
-    private ISimpleBbsDao dao;
+    private ISimpleBbsService bbsService;
 
     @RequestMapping("/list")
     public String userListPage(Model model){
-        model.addAttribute("list", dao.listDao());
+        model.addAttribute("list", bbsService.list());
 
-        int nTotalCount = dao.articleCount();
+        int nTotalCount = bbsService.count();
         System.out.println("Count : " + nTotalCount);
         return "/list";
     }
@@ -34,7 +34,7 @@ public class MyController {
     @RequestMapping("/view")
     public String view(HttpServletRequest request, Model model){
         String sId = request.getParameter("id");
-        model.addAttribute("dto", dao.viewDao(sId));
+        model.addAttribute("dto", bbsService.view(sId));
         return "view";
     }
 
@@ -54,7 +54,7 @@ public class MyController {
         map.put("title", sTitle);
         map.put("content", sContent);
 
-        int nResult = dao.writeDao(map);
+        int nResult = bbsService.write(map);
         System.out.println("write : " + nResult);
 
         return "redirect:list";
@@ -62,8 +62,37 @@ public class MyController {
 
     @RequestMapping("/delete")
     public String delete(HttpServletRequest request, Model model){
-        dao.deleteDao(request.getParameter("id"));
+        bbsService.delete(request.getParameter("id"));
         return "redirect:list";
+    }
+
+
+
+    // transaction
+    @Autowired
+    IBuyTicketService buyTicket;
+
+    @RequestMapping("/buy_ticket")
+    public String buy_ticket(){
+        return "buy_ticket";
+    }
+
+    @RequestMapping("/buy_ticket_card")
+    public String buy_ticket_card(
+            @RequestParam("consumerId") String consumerId,
+            @RequestParam("amount") String amount,
+            @RequestParam("error") String error,
+            Model model
+    ){
+        int nResult = buyTicket.buy(consumerId, Integer.parseInt(amount), error);
+
+        model.addAttribute("consumerId", consumerId);
+        model.addAttribute("amount", amount);
+        if(nResult == 1){
+            return "buy_ticket_end";
+        }else{
+            return "buy_ticket_error";
+        }
     }
 
 }

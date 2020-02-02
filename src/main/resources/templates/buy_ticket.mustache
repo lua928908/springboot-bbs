@@ -1,0 +1,16 @@
+{{>layout/header}}
+
+<p>카드결제</p>
+
+<form action="buy_ticket_card">
+    <p>고객 아이디: <input type="text" name="consumerId"></p>
+    <p>티켓 수량: <input type="text" name="amount"></p>
+    <p>에러 발생 여부: <input type="text" name="error" value="0"></p>
+
+    <button>구매하기</button>
+
+    <hr>
+    에러 발생 여부에 1을 입력하면 에러가 발생합니다.
+</form>
+
+{{>layout/footer}}
