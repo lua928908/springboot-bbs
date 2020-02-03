@@ -67,7 +67,6 @@ public class MyController {
     }
 
 
-
     // transaction
     @Autowired
     IBuyTicketService buyTicket;
@@ -95,4 +94,26 @@ public class MyController {
         }
     }
 
+
+    // security
+    @RequestMapping("/loginForm")
+    public String login(){ return "security/loginForm"; }
+
+//    @RequestMapping("/loginError")
+//    public String loginError(){ return "security/loginError"; }
+
+    @RequestMapping("/guest/welcom")
+    public String welcom1(){
+        return "guest/welcome1";
+    }
+
+    @RequestMapping("/member/welcom")
+    public String welcom2(){
+        return "member/welcome2";
+    }
+
+    @RequestMapping("/admin/welcom")
+    public String welcom3(){
+        return "admin/welcome3";
+    }
 }
