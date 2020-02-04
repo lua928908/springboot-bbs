@@ -39,6 +39,11 @@ dependencies {
     implementation('org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16')
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.security:spring-security-test')
+
+    // resources/libs 외부 jar 파일을 컴파일 함
+    dependencies{
+        compile fileTree(dir: 'libs', include: ["*.jar"])
+    }
 }
 
 test {
